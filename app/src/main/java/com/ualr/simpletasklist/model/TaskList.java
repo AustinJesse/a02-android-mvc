@@ -1,4 +1,6 @@
 package com.ualr.simpletasklist.model;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TaskList {
 
@@ -8,8 +10,34 @@ public class TaskList {
     // TIP. We need a data structure able to dynamically grow and shrink. That's why we'll use a HashMap.
     // where keys will be integer values and the mapped values will be a task object
 
+    HashMap<Integer, Task> taskList;
+
+    public TaskList(){
+        taskList = new HashMap<>();
+    }
+
     // TODO 04. Define the class constructor and the corresponding getters and setters.
 
+    public String getKeyDescription(Integer id)
+    {
+        Task retrieved = this.taskList.get(id);
+        return retrieved.getTaskDescription();
+    }
+
+    public String getTaskStatus(Integer id)
+    {
+        Task status = this.taskList.get(id);
+        return status.getTaskStatus();
+
+    }
+    public void setTaskStatus(Integer id)
+    {
+
+        Integer key =id;
+        Task change = this.taskList.get(id);
+        change.setTaskStatus("Finished");
+
+    }
     // TODO 06.03. Define a new method called "add" that, given a task description, will create a
     //  new task and add it to the task list.
 

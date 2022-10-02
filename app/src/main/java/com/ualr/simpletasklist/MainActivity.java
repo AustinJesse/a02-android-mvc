@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.ualr.simpletasklist.databinding.ActivityMainBinding;
+import com.ualr.simpletasklist.model.TaskList;
+import java.util.HashMap;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -12,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     // TODO 05. Add a TaskList member to the MainActivity. Initialize the new member.
+    private TaskList List;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
