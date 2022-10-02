@@ -18,55 +18,54 @@ public class TaskList {
 
     // TODO 04. Define the class constructor and the corresponding getters and setters.
 
-    public String getKeyDescription(Integer id)
+    public String getKeyDesc(Integer id)
     {
         Task retrieved = this.taskList.get(id);
-        return retrieved.getTaskDescription();
+        return retrieved.getTaskDesc();
     }
 
-    public String getTaskStatus(Integer id)
+    public String getTaskDone(Integer id)
     {
         Task status = this.taskList.get(id);
-        return status.getTaskStatus();
+        return status.getTaskDone();
 
     }
-    public void setTaskStatus(Integer id)
+    public void setTaskDone(Integer id)
     {
 
         Integer key = id;
         Task change = this.taskList.get(id);
-        change.setTaskStatus("Done");
+        change.setTaskDone("Done");
 
     }
     // TODO 06.03. Define a new method called "add" that, given a task description, will create a
     //  new task and add it to the task list.
 
-    public void add(String taskDescription){
-        Task newTask = new Task(taskDescription);
-        Integer key = taskList.size()+1;
+    public void add(String taskDesc) {
+        Task newTask = new Task(taskDesc);
+        Integer key = taskList.size() + 1;
         this.taskList.put(key, newTask);
-        //Just adding onto the hashmap using the two values needed for it
     }
 
     // TODO 06.04. Define a new "toString" method that provides a formatted string with all the tasks in the task list.
     // Format: 1 line per task. Each line should start with the id number of the task, then a dash, and the task description right after that.
     // If the task is marked as done, "Done" should be included at the end of the line
 
-    public String toString(){
+    public String toString() {
         String formatted = "";
         String status;
-        Integer i = this.taskList.size();
-        while(i != 0){
-            status = this.getTaskStatus(i);
-            formatted += i.toString() + "-" + this.getKeyDescription(i) + " " + status + "“\n”";
+        Integer i =  this.taskList.size();
+        while(i != 0)
+        {
+            status  = this.getTaskDone(i);
+            formatted += i.toString() + "-" + this.getKeyDesc(i) + "             " + status + "“\n”";
             //This makes the comments from above and the \n makes it a new line, or else all of our
             //formatted lines would be all on one line
             i--;
-            //just decrementing the counter of task list size
         }
         return formatted;
-        //just the list basically
     }
+
     // TODO 07.03. Define a new method called "delete" that, given a task id, will delete the
     //  corresponding task from the task list.
 
@@ -88,6 +87,6 @@ public class TaskList {
     //  corresponding task as done.
 
     public void markDone(Integer taskID){
-        this.setTaskStatus(taskID);
+        this.setTaskDone(taskID);
     }
 }

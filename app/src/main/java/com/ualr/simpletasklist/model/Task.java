@@ -7,26 +7,27 @@ public class Task {
 
     // TODO 02. Define the class constructor and the corresponding getters and setters.
 
-    private String taskStatus = "";
-    private String taskDescription;
+    private String taskDone = "";
+    private String taskDesc;
 
-    public String getTaskStatus() {
-        return taskStatus;
+    public String getTaskDone() {
+        return taskDone;
     }
 
-    public void setTaskStatus(String taskDone) {
-        this.taskStatus = taskDone;
+    public void setTaskDone(String taskDone) {
+        this.taskDone = taskDone;
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
+    public String getTaskDesc() {
+        return taskDesc;
     }
 
     public void setTaskDesc(String taskDesc) {
-        this.taskDescription = taskDescription;
+        this.taskDesc = taskDesc;
     }
 
+
     public Task(String taskDesc) {
-        this.taskDescription = taskDescription;
+        this.taskDesc = taskDesc;
     }
 }

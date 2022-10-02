@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         // triggered whenever the user clicks on that button
     }
 
-    public void onAddBtnClicked(View v) {
-        String taskDescription = binding.editTextTextPersonName.getText().toString();
-        List.add(taskDescription);
+    public void onAddBtnClicked(View v){
+        String taskDesc = binding.editTextTextPersonName.getText().toString();
+        List.add(taskDesc);
         binding.taskList.setText(List.toString());
     }
 
