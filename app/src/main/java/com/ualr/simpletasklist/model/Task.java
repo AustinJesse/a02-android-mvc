@@ -1,5 +1,7 @@
 package com.ualr.simpletasklist.model;
 
+import java.util.HashMap;
+
 public class Task {
 
     // TODO 01. Define two attributes for the Task class: one to store the task description and a second one that
@@ -7,14 +9,21 @@ public class Task {
 
     // TODO 02. Define the class constructor and the corresponding getters and setters.
 
-    private String taskDone = "";
+    private Boolean taskDone;
+    //We could have used a string but since the task is either done or it isnt a boolean saves space
     private String taskDescription;
 
-    public String getTaskDone() {
+    public Task(String taskDescription, Boolean taskDone) {
+        this.taskDescription = taskDescription;
+        this.taskDone = taskDone;
+    }
+    //Setting up the call to this function through task
+    //Below are just setters and getters for our variables
+    public Boolean getTaskDone() {
         return taskDone;
     }
 
-    public void setTaskDone(String taskDone) {
+    public void setTaskDone(Boolean taskDone) {
         this.taskDone = taskDone;
     }
 
@@ -22,12 +31,10 @@ public class Task {
         return taskDescription;
     }
 
-    public void setTaskDescription(String taskDesc) {
-        this.taskDescription = taskDesc;
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
     }
 
+    //We can get, set and assign values from Task now!
 
-    public Task(String taskDesc) {
-        this.taskDescription = taskDesc;
-    }
 }

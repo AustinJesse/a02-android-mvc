@@ -1,6 +1,9 @@
 package com.ualr.simpletasklist.model;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
+import android.widget.TextView;
+import com.ualr.simpletasklist.model.Task;
 
 public class TaskList {
 
@@ -10,61 +13,74 @@ public class TaskList {
     // TIP. We need a data structure able to dynamically grow and shrink. That's why we'll use a HashMap.
     // where keys will be integer values and the mapped values will be a task object
 
-    private final Map<Integer, Task> taskList;
+    private HashMap<Integer, Task> listTasks = new HashMap<Integer, Task>();
+    //This just adds onto the hashmap and makes a new one that we can use
 
     public TaskList(){
-        taskList = new HashMap<>();
+
+        this.listTasks = new HashMap<>();
     }
 
     // TODO 04. Define the class constructor and the corresponding getters and setters.
 
-    public String getKeyDesc(Integer id)
-    {
-        Task retrieved = this.taskList.get(id);
-        return retrieved.getTaskDescription();
+    public HashMap<Integer, Task> getTasks(){
+        return listTasks;
     }
+    //We are using Mashmap as our function variable type and all it does is
+    //that it returns what our task list holds currently, the HashMap
 
-    public String getTaskDone(Integer id)
-    {
-        Task status = this.taskList.get(id);
-        return status.getTaskDone();
-
+    public void setTasks(HashMap<Integer, Task> listTasks){
+        this.listTasks = listTasks;
     }
-    public void setTaskDone(Integer id)
-    {
+    //We use void as it is not meant to return any values, just assign whatever
+    //Hashmap we passed in and put it into our list of tasks
 
-        Integer key = id;
-        Task change = this.taskList.get(id);
-        change.setTaskDone("Done");
-
-    }
     // TODO 06.03. Define a new method called "add" that, given a task description, will create a
     //  new task and add it to the task list.
 
-    public void add(String taskDesc) {
-        Task newTask = new Task(taskDesc);
-        Integer key = taskList.size() + 1;
-        this.taskList.put(key, newTask);
+    public void add(Integer taskId, String taskDescription, Boolean isTaskDone) {
+        Integer key = listTasks.size() + 1;
+        listTasks.put(key, new Task(taskDescription,isTaskDone));
     }
+    //We pass in the taskDescription and whether or not the task is done
+    //We use the size of our list to add a new task onto the backend
+    //Then we use .put to assign a new task in our HashMap at the next slot in our list
+    //And we use the Task constructor to make the certain Task
+    //As reference I used https://learn.microsoft.com/en-us/dotnet/api/android.content.contentvalues.put?view=xamarin-android-sdk-12
+    //It goes over different puts, had to change how I coded the put a bit but it is a good resource
+    //Initially this code was split off into two parts but as a test I had to use put
+    //So instead of making a new task in one line and using the key ID and using that Task
+    //It is just used all in one line, also fixed whatever error I was having with not being able to add
+    //onto the list. Took some time to find this and code it but it was worth it
 
     // TODO 06.04. Define a new "toString" method that provides a formatted string with all the tasks in the task list.
     // Format: 1 line per task. Each line should start with the id number of the task, then a dash, and the task description right after that.
     // If the task is marked as done, "Done" should be included at the end of the line
 
     public String toString() {
+        Iterator<Map.Entry<Integer, Task>> i = listTasks.entrySet().iterator();
         String formatted = "";
-        String status;
-        Integer i =  this.taskList.size();
-        while(i != 0)
-        {
-            status  = this.getTaskDone(i);
-            formatted += i.toString() + "-" + this.getKeyDesc(i) + "             " + status + "“\n”";
-            //This makes the comments from above and the \n makes it a new line, or else all of our
-            //formatted lines would be all on one line
-            i--;
+        for (HashMap.Entry<Integer,Task> e : listTasks.entrySet()){
+            StringBuilder formattedString = new StringBuilder();
+            if(e.getValue().getTaskDone() == true){
+                formattedString.append(e.getKey()).append("-").append(((Task)e.getValue()).getTaskDescription()).append("Done").append("\n");
+            }
+            else if (e.getValue().getTaskDone() == false){
+                formattedString.append(e.getKey()).append("-").append(((Task)e.getValue()).getTaskDescription()).append("\n");
+            }
         }
         return formatted;
     }
+
+    //For the iterator we have to use the map as this holds all of our values
+    //Before I looked up how to iterate over a map I just used size which gave me some errors
+    //The entry set is also able to go over a whole map which is what gives us the iterator itself
+    //All websites I used will be down below
+    //https://stackoverflow.com/questions/1066589/iterate-through-a-hashmap
+    //https://developer.android.com/reference/java/util/Map#entrySet()
+    //https://stackoverflow.com/questions/18740501/combine-multiple-strings-into-one-java
+
+
 
     // TODO 07.03. Define a new method called "delete" that, given a task id, will delete the
     //  corresponding task from the task list.
@@ -80,13 +96,14 @@ public class TaskList {
             intTaskID = 0;
             //Just incase theres 0 tasks, no need to run if 0
         }
-        this.taskList.remove(intTaskID);
+        this.listTasks.remove(intTaskID);
     }
 
     // TODO 08.03. Define a new method called "markDone" that, given a task id, will mark the
     //  corresponding task as done.
 
     public void markDone(Integer taskID){
-        this.setTaskDone(taskID);
+        Boolean taskDone = true;
+        listTasks.get(taskID).setTaskDone(taskDone);
     }
 }

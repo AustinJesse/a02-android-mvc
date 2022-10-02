@@ -6,8 +6,13 @@ import android.os.Bundle;
 
 import com.ualr.simpletasklist.databinding.ActivityMainBinding;
 import com.ualr.simpletasklist.model.TaskList;
+import com.ualr.simpletasklist.model.Task;
 import java.util.HashMap;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,39 +20,91 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     // TODO 05. Add a TaskList member to the MainActivity. Initialize the new member.
-    private TaskList List;
+    private TaskList Tasks;
+
+    private EditText editTextTextPersonName;
+    private EditText editTextTaskId;
+    private TextView taskList;
+    private ImageView addBtn;
+    private Button deleteBtn;
+    private Button clearBtn;
+    public Integer taskId = new Integer("0");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        List = new TaskList();
+        Tasks = new TaskList();
 
         //TODO 06.02 Bind the onAddBtnClicked method to the add button, so the onAddBtnClicked is
         // triggered whenever the user clicks on that button
 
+        this.editTextTextPersonName = findViewById(R.id.editTextTextPersonName);
+        this.editTextTaskId = findViewById(R.id.editTextTaskId);
+        this.taskList = findViewById(R.id.taskList);
+
+        this.addBtn = findViewById(R.id.add_btn);
+        this.deleteBtn = findViewById(R.id.deleteBtn);
+        this.clearBtn = findViewById(R.id.clearBtn);
+
+        this.addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onAddBtnClicked();
+            }
+        });
+
         //TODO 07.02 Bind the onDeleteBtnClicked method to the delete button, so that method is
         // triggered whenever the user clicks on that button
 
+        this.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onDeleteBtnClicked();
+            }
+        });
+
         //TODO 08.02 Bind the onDoneBtnClicked method to the done button, so the onDoneBtnClicked method is
         // triggered whenever the user clicks on that button
+
+        this.clearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onDoneBtnClicked();
+            }
+        });
+
     }
 
-    public void onAddBtnClicked(View v){
-        String taskDesc = binding.editTextTextPersonName.getText().toString();
-        List.add(taskDesc);
-        binding.taskList.setText(List.toString());
+    public void onAddBtnClicked(){
+        taskId += taskId;
+        //Go to the next slot in the task id list
+        String taskDescription = this.editTextTextPersonName.getText().toString();
+        //We make a string for the task description
+        //We use this to use the person name in the main activity
+        //This gets the persons name from the console using the R. variable pointer
+        //So now we can grab the text from it and convert it to a string using toString
+        Boolean isDoneSetUp = false;
+        //Since were making a new task the bool is just false
+        if (taskDescription.isEmpty()) {
+            return;
+            //catches if an unfinished task has been pushed through
+        }
+
+        this.Tasks.add(taskId, taskDescription, isDoneSetUp);//fills up our hashmap params
+        this.taskList.setText(Tasks.toString());//initializes new task
     }
 
-    public void onDeleteBtnClicked(View v){
+    public void onDeleteBtnClicked(){
         String deleteKey = binding.editTextTaskId.getText().toString();
-        List.delete(deleteKey);
-        binding.taskList.setText(List.toString());
+        Tasks.delete(deleteKey);
+        binding.taskList.setText(Tasks.toString());
 
     }
 
-    public void onDoneBtnClicked(View v){
+    public void onDoneBtnClicked(){
         String stringKey = binding.editTextTaskId.getText().toString(); //have to convert string(string) to int(integer)
         int intKey;
         //same conversion we did in TaskList to turn string into int but this time add binding
@@ -59,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
             intKey = 0;
         }
 
-        List.markDone(intKey);
+        Tasks.markDone(intKey);
 
-        binding.taskList.setText(List.toString());
+        binding.taskList.setText(Tasks.toString());
     }
 
 
