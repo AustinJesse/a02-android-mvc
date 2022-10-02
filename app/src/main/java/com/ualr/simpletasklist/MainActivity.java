@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        List = new TaskList();
 
         //TODO 06.02 Bind the onAddBtnClicked method to the add button, so the onAddBtnClicked is
         // triggered whenever the user clicks on that button
@@ -31,6 +32,36 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO 08.02 Bind the onDoneBtnClicked method to the done button, so the onDoneBtnClicked method is
         // triggered whenever the user clicks on that button
+    }
+
+    public void onAddBtnClicked(View v) {
+        String taskDescription = binding.editTextTextPersonName.getText().toString();
+        List.add(taskDescription);
+        binding.taskList.setText(List.toString());
+    }
+
+    public void onDeleteBtnClicked(View v){
+        String deleteKey = binding.editTextTaskId.getText().toString();
+        List.delete(deleteKey);
+        binding.taskList.setText(List.toString());
+
+    }
+
+    public void onDoneBtnClicked(View v){
+        String stringKey = binding.editTextTaskId.getText().toString(); //have to convert string(string) to int(integer)
+        int intKey;
+        //same conversion we did in TaskList to turn string into int but this time add binding
+        try {
+            intKey = Integer.parseInt(stringKey);
+        }
+        catch (NumberFormatException e)
+        {
+            intKey = 0;
+        }
+
+        List.markDone(intKey);
+
+        binding.taskList.setText(List.toString());
     }
 
 

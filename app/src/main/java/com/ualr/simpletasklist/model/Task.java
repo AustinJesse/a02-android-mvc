@@ -26,7 +26,6 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-
     public Task(String taskDesc) {
         this.taskDescription = taskDescription;
     }
