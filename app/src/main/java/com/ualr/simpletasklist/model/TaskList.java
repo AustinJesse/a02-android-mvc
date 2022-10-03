@@ -63,10 +63,10 @@ public class TaskList {
         for (HashMap.Entry<Integer,Task> e : listTasks.entrySet()){
             StringBuilder formattedString = new StringBuilder();
             if(e.getValue().getTaskDone() == true){
-                formattedString.append(e.getKey()).append("-").append(((Task)e.getValue()).getTaskDescription()).append("Done").append("\n");
+                formatted = formatted.concat("\n" + e.getKey() + "-" + ((Task)e.getValue()).getTaskDescription() + " Done");
             }
             else if (e.getValue().getTaskDone() == false){
-                formattedString.append(e.getKey()).append("-").append(((Task)e.getValue()).getTaskDescription()).append("\n");
+                formatted = formatted.concat("\n" + e.getKey() + "-" + ((Task)e.getValue()).getTaskDescription());
             }
         }
         return formatted;
