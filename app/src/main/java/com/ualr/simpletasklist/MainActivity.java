@@ -101,24 +101,21 @@ public class MainActivity extends AppCompatActivity {
         String deleteKey = binding.editTextTaskId.getText().toString();
         Tasks.delete(deleteKey);
         binding.taskList.setText(Tasks.toString());
-
     }
 
-    public void onDoneBtnClicked(){
-        String stringKey = binding.editTextTaskId.getText().toString(); //have to convert string(string) to int(integer)
+    public void onDoneBtnClicked() {
+        String strKey = this.editTextTaskId.getText().toString(); //have to convert str(string) to int(integer)
         int intKey;
-        //same conversion we did in TaskList to turn string into int but this time add binding
         try {
-            intKey = Integer.parseInt(stringKey);
+            intKey = Integer.parseInt((strKey));
         }
         catch (NumberFormatException e)
         {
             intKey = 0;
         }
 
-        Tasks.markDone(intKey);
-
-        binding.taskList.setText(Tasks.toString());
+        this.Tasks.markDone(intKey);
+        this.taskList.setText(Tasks.toString());
     }
 
 
